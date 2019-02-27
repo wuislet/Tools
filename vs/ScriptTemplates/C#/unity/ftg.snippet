@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+	<CodeSnippet Format="1.0.0">
+		<Header>
+			<Title>FindWithTag</Title>
+			<Shortcut>ftg</Shortcut>
+			<Description>Unity GameObject FindWithTag</Description>
+			<Author>Islet</Author>
+			<SnippetTypes>
+				<SnippetType>Expansion</SnippetType>
+			</SnippetTypes>
+		</Header>
+		<Snippet>
+			<Declarations>
+        <Literal>
+          <ID>prop</ID>
+          <ToolTip>属性名称</ToolTip>
+          <Default>lst</Default>
+        </Literal>
+        <Literal>
+          <ID>multiple</ID>
+          <ToolTip>是否查找复数个物体</ToolTip>
+          <Default>s</Default>
+        </Literal>
+        <Literal>
+          <ID>name</ID>
+          <ToolTip>标签名称</ToolTip>
+          <Default>Player</Default>
+        </Literal>
+			</Declarations>
+			<Code Language="csharp"><![CDATA[var $prop$ = GameObject.FindGameObject$multiple$WithTag("$name$");
+$end$]]>
+			</Code>
+		</Snippet>
+	</CodeSnippet>
+</CodeSnippets>

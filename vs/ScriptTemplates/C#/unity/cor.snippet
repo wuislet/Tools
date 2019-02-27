@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+	<CodeSnippet Format="1.0.0">
+		<Header>
+			<Title>StartCoroutine</Title>
+			<Shortcut>cor</Shortcut>
+			<Description>Unity 协程</Description>
+			<Author>Islet</Author>
+			<SnippetTypes>
+				<SnippetType>Expansion</SnippetType>
+			</SnippetTypes>
+		</Header>
+		<Snippet>
+			<Declarations>
+        <Literal>
+          <ID>name</ID>
+          <ToolTip>方法名称</ToolTip>
+          <Default>MyFunc</Default>
+        </Literal>
+			</Declarations>
+			<Code Language="csharp"><![CDATA[
+		StartCoroutine("$name$");
+	private IEnumerator $name$()
+	{
+  	$selected$ $end$
+		yield return new WaitForEndOfFrame();
+	}]]>
+			</Code>
+		</Snippet>
+	</CodeSnippet>
+</CodeSnippets>

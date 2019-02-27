@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+	<CodeSnippet Format="1.0.0">
+		<Header>
+			<Title>Instantiate</Title>
+			<Shortcut>ins</Shortcut>
+			<Description>Unity Instantiate</Description>
+			<Author>Islet</Author>
+			<SnippetTypes>
+				<SnippetType>Expansion</SnippetType>
+			</SnippetTypes>
+		</Header>
+		<Snippet>
+			<Declarations>
+        <Literal>
+          <ID>prop</ID>
+          <ToolTip>属性名称</ToolTip>
+          <Default>obj</Default>
+        </Literal>
+        <Literal>
+          <ID>gameobj</ID>
+          <ToolTip>创建预设</ToolTip>
+          <Default>MyPrefab</Default>
+        </Literal>
+				<Literal>
+					<ID>pos</ID>
+					<ToolTip>初始化位置</ToolTip>
+					<Default>Vector3.zero</Default>
+				</Literal>
+        <Literal>
+          <ID>qua</ID>
+          <ToolTip>初始化旋转</ToolTip>
+          <Default>Quaternion.identity</Default>
+        </Literal>
+        <Literal>
+          <ID>type</ID>
+          <ToolTip>属性类型</ToolTip>
+          <Default>GameObject</Default>
+        </Literal>
+			</Declarations>
+			<Code Language="csharp"><![CDATA[var $prop$ = Instantiate($gameobj$, $pos$, $qua$) as $type$;
+$end$]]>
+			</Code>
+		</Snippet>
+	</CodeSnippet>
+</CodeSnippets>

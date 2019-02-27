@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+	<CodeSnippet Format="1.0.0">
+		<Header>
+			<Title>LoadScene</Title>
+			<Shortcut>loads</Shortcut>
+			<Description>Unity SceneManager LoadScene</Description>
+			<Author>Islet</Author>
+			<SnippetTypes>
+				<SnippetType>Expansion</SnippetType>
+			</SnippetTypes>
+		</Header>
+		<Snippet>
+			<Declarations>
+        <Literal>
+          <ID>scene</ID>
+          <ToolTip>场景名称</ToolTip>
+          <Default>MainMenu</Default>
+        </Literal>
+			</Declarations>
+			<Code Language="csharp"><![CDATA[SceneManager.LoadScene("$scene$");
+$end$]]>
+			</Code>
+		</Snippet>
+	</CodeSnippet>
+</CodeSnippets>

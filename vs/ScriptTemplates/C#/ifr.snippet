@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+	<CodeSnippet Format="1.0.0">
+		<Header>
+			<Title>ifr</Title>
+			<Shortcut>ifr</Shortcut>
+			<Description>if-return的代码片段</Description>
+			<Author>Islet</Author>
+			<SnippetTypes>
+				<SnippetType>Expansion</SnippetType>
+				<SnippetType>SurroundsWith</SnippetType>
+			</SnippetTypes>
+		</Header>
+		<Snippet>
+			<Declarations>
+        <Literal>
+          <ID>expression</ID>
+          <ToolTip>要计算的表达式</ToolTip>
+          <Default>true</Default>
+        </Literal>
+        <Literal>
+          <ID>value</ID>
+          <ToolTip>返回值</ToolTip>
+          <Default></Default>
+        </Literal>
+			</Declarations>
+			<Code Language="csharp"><![CDATA[if ($expression$)
+	{
+		$selected$ return$value$;
+	}
+$end$]]>
+			</Code>
+		</Snippet>
+	</CodeSnippet>
+</CodeSnippets>

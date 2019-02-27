@@ -1,0 +1,25 @@
+﻿/*************************************************************
+   Copyright(C) 2017 by #COMPANY#
+   All rights reserved.
+   
+   #SCRIPTFULLNAME#
+   #PROJECTNAME#
+   
+   Created by #AUTHOR# on #DATE#.
+   
+*************************************************************/
+
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+namespace isletspace
+{
+    /// <summary>
+    /// 
+    /// </summary>
+    public class #SCRIPTNAME# : MonoBehaviour
+    {
+        
+    }
+}
