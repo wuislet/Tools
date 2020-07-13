@@ -322,52 +322,6 @@ public partial class FindInPrefab : EditorWindow
     }
 
     #region Tools
-    public static System.Object GetValue(string fieldName, System.Object obj)
-    {
-        var property = obj.GetType().GetProperty(fieldName, System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance
-            | System.Reflection.BindingFlags.Static);
-        if (property == null)
-        {
-            var field = obj.GetType().GetField(fieldName, System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance
-            | System.Reflection.BindingFlags.Static);
-            if (field != null)
-                return field.GetValue(obj);
-            else
-                throw new System.Exception("Failt to find property: " + fieldName);
-        }
-        else
-        {
-            return property.GetValue(obj, null);
-        }
-    }
-    
-    public static void SetValue(string fieldName, System.Object obj, System.Object value)
-    {
-        var property = obj.GetType().GetProperty(fieldName, System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance
-                                                            | System.Reflection.BindingFlags.Static);
-        if (property == null)
-        {
-            var field = obj.GetType().GetField(fieldName, System.Reflection.BindingFlags.NonPublic | System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Instance
-                                                          | System.Reflection.BindingFlags.Static);
-            if (field != null)
-                field.SetValue(obj, value);
-            else
-                throw new System.Exception("Failt to find property: " + fieldName);
-        }
-        else
-        {
-            property.SetValue(obj, value, null);
-        }
-    }
-
-    public static System.Object InvokMethod(string methodName, System.Object obj, params object[] args)
-    {
-        var method = obj.GetType().GetMethod(methodName);
-        if (method == null)
-            throw new System.Exception("Failt to find method: " + methodName);
-        return method.Invoke(obj, args);
-    }
-
     /// <summary>
     /// Project中筛选显示指定的资源
     /// TwoColumns模式下，会将资源集中到一起；
@@ -380,8 +334,7 @@ public partial class FindInPrefab : EditorWindow
         {
             var t = typeof(ProjectWindowUtil);
             var obj = t.ReflectionPrivateStaticCall<object>("GetProjectBrowserIfExists");
-
-
+            
             if (null != obj)
             {
 

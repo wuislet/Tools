@@ -12,7 +12,6 @@
 
 using System.Collections.Generic;
 using TMPro;
-using UGUIExtend;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
@@ -165,7 +164,7 @@ public partial class FindInPrefab
             var com = input.go.GetComponent(component);
             if (com != null)
             {
-                var value = GetValue(propertyName, com);
+                var value = ReflectionHelper.GetValue(com, propertyName);
                 if (value != null)
                 {
                     if (isEqual)
@@ -176,7 +175,7 @@ public partial class FindInPrefab
                             {
                                 if (isReplace)
                                 {
-                                    SetValue(propertyName, com, intNewValue);
+                                    ReflectionHelper.SetValue(com, propertyName, intNewValue);
                                 }
                                 str = input.path;
                             }
@@ -187,7 +186,7 @@ public partial class FindInPrefab
                             {
                                 if (isReplace)
                                 {
-                                    SetValue(propertyName, com, strNewValue);
+                                    ReflectionHelper.SetValue(com, propertyName, strNewValue);
                                 }
                                 str = input.path;
                             }
@@ -325,7 +324,7 @@ public partial class FindInPrefab
             var com = input.go.GetComponent(component);
             if (com != null)
             {
-                InvokMethod(functionName, com);
+                ReflectionHelper.InvokMethod(com, functionName);
             }
             else
             {
@@ -641,7 +640,7 @@ public partial class FindInPrefab
                     str = input.path;
                 }
             }
-            
+
             var tmp = input.go.GetComponent<TextMeshProUGUI>();
             if (tmp != null)
             {
@@ -814,7 +813,7 @@ public partial class FindInPrefab
         public string FuncReturn(FindResult input)
         {
             var str = "";
-            var com = input.go.GetComponent<AdvancedImage>();
+            var com = input.go.GetComponent<Image>();
             str = AssetDatabase.GetAssetPath(com.sprite);
             if (!str.EndsWith(".tga"))
             {
