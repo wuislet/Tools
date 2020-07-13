@@ -47,7 +47,7 @@ public partial class FindInPrefab : EditorWindow
     private bool _logFoldout = true;
     private Dictionary<FindResult, List<string>> mResultLog = new Dictionary<FindResult, List<string>>();
 
-    [MenuItem("X2Tools/局外工具/超级查找prefab")]
+    [MenuItem("Tools/超级查找prefab")]
     static void Init()
     {
         EditorWindow.GetWindow(typeof(FindInPrefab));
