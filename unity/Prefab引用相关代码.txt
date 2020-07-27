@@ -1,0 +1,137 @@
+ref: https://www.cnblogs.com/CodeGize/p/7771691.html
+
+
+    在Unity使用Prefab过程中，我们有时候需要进行Prefab实例断开引用和替换引用的需求。实现这些需求，使用到的核心的类是PrefabUtility。PrefabUtility是一个静态类，主要用于进行Prefab的相关处理。 这里主要使用以下几种方法
+
+PrefabUtility.CreateEmptyPrefab
+PrefabUtility.ReplacePrefab
+PrefabUtility.DisconnectPrefabInstance
+PrefabUtility.GetPrefabParent
+PrefabUtility.ConnectGameObjectToPrefab
+断开引用
+    断开Prefab引用的代码如下
+
+[MenuItem("Tools/Prefab/去除引用")]
+
+public static void BreakPrefabRef()
+
+{
+
+    var select = Selection.activeGameObject;
+
+    if (select.activeInHierarchy)
+
+    {
+
+        PrefabUtility.DisconnectPrefabInstance(select);
+
+        Selection.activeGameObject = null;
+
+        var prefab = PrefabUtility.CreateEmptyPrefab("Assets/empty.prefab");
+
+        PrefabUtility.ReplacePrefab(select, prefab, ReplacePrefabOptions.ConnectToPrefab);
+
+        PrefabUtility.DisconnectPrefabInstance(select);
+
+        AssetDatabase.DeleteAsset("Assets/empty.prefab");
+
+    }
+
+}
+
+    虽然PrefabUtility.DisconnectPrefabInstance有断开Prefab的含义，但是如果仅仅使用这个函数会出现下面这个情况，名字的颜色从蓝变白，看起来已经不是一个prefab，但是从Inspector面板中还是能够看到Prefab标记以及Prefab实例才会出现的那三个Select、Revert、Apply按钮。
+
+2017110201
+
+    如果尝试在这个时候删除掉Project里面的源prefab，发现这个prefab标记就消失了。
+
+    因此，这里采用以下方法实现整个断开引用
+
+使用Selection.activeGameObject获取当前选中的物体
+使用PrefabUtility.CreateEmptyPrefab先创建一个空的prefab
+使用PrefabUtility.ReplacePrefab将场景中选中的Prefab实例制作成一个Prefab并覆盖到之前的空prefab上
+使用PrefabUtility.DisconnectPrefabInstance断开引用
+使用AssetDatabase.DeleteAsset删除Project中新建的prefab
+    至此就完成了断开引用的功能。这里在函数加上[menuitem]标签，将这个功能放在unity菜单“Tools->Prefab->去除引用”上。
+
+替换引用
+    替换引用的代码如下
+
+[MenuItem("Tools/Prefab/替换引用")]
+
+public static void RelocalPrefabRef()
+
+{
+
+    var select = Selection.activeGameObject;
+
+    if (select.activeInHierarchy)
+
+    {
+
+        var ab = PrefabUtility.GetPrefabParent(select);
+
+        if (ab == null)
+
+            return;
+
+        var oripath = AssetDatabase.GetAssetPath(ab);
+
+        var filters = new[] { "prefab file", "prefab" };
+
+        var tar = EditorUtility.OpenFilePanelWithFilters("select target", Application.dataPath, filters);
+
+        if (string.IsNullOrEmpty(tar))
+
+            return;
+
+        tar = FileUtil.GetProjectRelativePath(tar);
+
+        var tarprefab = AssetDatabase.LoadAssetAtPath<GameObject>(tar);
+
+        if (tarprefab == null)
+
+            return;
+
+        var gname = select.name;
+
+        var enable = select.activeInHierarchy;
+
+        var pos = select.transform.localPosition;
+
+        var rot = select.transform.localRotation;
+
+        var scale = select.transform.localScale;
+
+        var go = PrefabUtility.ConnectGameObjectToPrefab(select, tarprefab);
+
+        go.transform.localPosition = pos;
+
+        go.transform.localRotation = rot;
+
+        go.transform.localScale = scale;
+
+        go.name = gname;
+
+        go.SetActive(enable);
+
+        Debug.LogFormat("Replace Prefab From:{0} to {1}", oripath, tar);
+
+    }
+
+}
+
+    代码中主要的流程为
+
+使用Selection.activeGameObject获取选中的物体
+使用PrefabUtility.GetPrefabParent获取这个物体在project中的源prefab
+使用AssetDatabase.GetAssetPath获取源prefab在project中的路径（后面用于log）
+使用EditorUtility.OpenFilePanelWithFilters打开一个文件选择窗口让玩家选择一个源prefab
+使用FileUtil.GetProjectRelativePath获取这个源prefab相对于工程的路径
+使用将这个源prefab加载到内存中
+为了保持替换后的位置关系，这里记录了原来的位置信息
+使用PrefabUtility.ConnectGameObjectToPrefab重新将选中的物体链接到玩家选择的源prefab上，完成prefab引用替换
+还原原来的位置关系
+    至此完成了Prefab实例替换引用的功能。在Unity中选择菜单Tools->Prefab->替换引用，选择一个prefab即可实现替换
+
+转载保留：http://www.cnblogs.com/CodeGize http://www.codegize.com
