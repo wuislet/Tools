@@ -1,5 +1,5 @@
 ﻿/*************************************************************
-   Copyright(C) 2017 by #COMPANY#
+   Copyright(C) 2021 by #COMPANY#
    All rights reserved.
    
    #SCRIPTFULLNAME#
